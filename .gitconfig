@@ -1,0 +1,41 @@
+[user]
+	name = Hirokazu Miyaji
+	email = hirokazu.miyaji@gmail.com
+[core]
+	excludesfile = /Users/hirokazumiyaji/.gitignore
+	pager = less -FSX
+[color]
+	ui = true
+[push]
+	default = tracking
+[alias]
+	st = -p status
+	ss = -p status -s
+	co = checkout
+	ci = commit -v
+	ca = commit -av
+	cam = commit --amend -v
+	di = diff
+	dc = diff --cached
+	br = branch
+	nbr = checkout -b
+	sw = checkout
+	um = \\!sh -c 'git pull \"$@\" && git mup' .
+	wdi = diff --word-diff
+	wdc = diff --word-diff --cached
+	au = add -u
+	l = log --decorate --numstat --summary
+	ll = log --decorate --numstat --summary --pretty=fuller -p
+	wll = log --decorate --numstat --summary --pretty=fuller -p --word-diff
+	ol = log --oneline --decorate
+	t = log --graph --oneline --decorate
+	g = grep
+	xl = stash list
+	xi = stash save
+	xo = stash pop
+	xd = stash drop
+	xa = stash apply
+	xs = stash show
+	xp = stash show -p
+[diff]
+	wordRegex = [@$%]*[[:alnum:]_]+|[^\n]
