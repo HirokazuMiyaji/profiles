@@ -1,5 +1,10 @@
 
-export WORKON_HOME=~/app/.virtualenvs
+export WORKON_HOME=$HOME/.virtualenvs
+if [ -d $WORKON_HOME ]; then
+  mkdir -p $WORKON_HOME
+fi
 source `which virtualenvwrapper.sh`
 
 alias mkve=mkvirtualenv
+alias rmve=rmvirtualenv
+alias lsve=lsvirtualenv
