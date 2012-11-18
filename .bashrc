@@ -1,23 +1,16 @@
-profles=~/.profiles
+profiles=~/.profiles
+
 source "${profiles}/functions"
-source "${profiles}/virtualenv"
+
+# init_paths
+
+init_editor
+
+init_rbenv
+
+init_virtualenv
 
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# virtualenv {{{
-export WORKON_HOME=$HOME/.virtualenvs
-if [ -d $WORKON_HOME ]; then
-  mkdir -p $WORKON_HOME
-fi
-source `which virtualenvwrapper.sh`
-alias mkve=mkvirtualenv
-alias lsve=lsvirtualenv
-alias rmve=rmvirtualenv
-# }}}
-
-# rbenv {{{
-eval "$(rbenv init -)"
-source ~/.rbenv/completions/rbenv.bash
-# }}}
