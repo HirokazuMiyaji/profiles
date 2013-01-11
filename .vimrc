@@ -16,20 +16,18 @@ augroup END
 "}}}
 
 "{{{ Bundle
-" set rtp+=~/.vim/bundle/vundle
-" call vundle#rc()
-" Bundle 'vim-ruby'
-" Bundle 'vim-rails.vim'
-" Bundle 'unite'
-" Bundle 'vim-quickrun'
-" Bundle 'vimshell'
-" Bundle 'zencoding-vim'
-" Bundle 'neocomplcache'
-" Bundle 'vim-python'
-" Bundle 'vim-python-virtualenv'
-" Bundle 'pyflakes-pathogen'
-" Bundle 'vim-makegreen'
-" Bundle 'node.vim'
+ set rtp+=~/.vim/bundle/vundle
+ call vundle#rc()
+ Bundle 'vim-ruby'
+ Bundle 'vim-rails.vim'
+ Bundle 'unite'
+ Bundle 'vim-quickrun'
+ Bundle 'vimshell'
+ Bundle 'zencoding-vim'
+ Bundle 'davidhalter/jedi-vim'
+ Bundle 'pyflakes-pathogen'
+ Bundle 'vim-makegreen'
+ Bundle 'node.vim'
 "}}}
 
 
@@ -300,6 +298,7 @@ augroup MyAutoCommands
   autocmd FileType php setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd FileType thrift setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd FileType c,cpp,objc setlocal tabstop=4 shiftwidth=4 expandtab nowrap
+  autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab nowrap
 
   " Mapping file types
   autocmd BufNewFile,BufRead *.as setlocal filetype=actionscript tabstop=2 shiftwidth=2 expandtab nowrap

@@ -2,7 +2,7 @@ profiles=~/.profiles
 
 source "${profiles}/functions"
 
-# init_paths
+init_paths
 
 init_editor
 
