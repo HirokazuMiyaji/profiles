@@ -35,6 +35,36 @@ Bundle 'git@github.com:tpope/vim-surround.git'
 
 " }}}
 
+" Ignore the case of normal letters
+set ignorecase
+" If the search pattern contains uppter case characters, override the 'ignorecase' option.
+set smartcase
+" Use incremental search.
+set incsearch
+" Do not highlight search result.
+set hlsearch
+nohlsearch
+" Searches wrap around the end of the file.
+set wrapscan
+
+" Tab and spaces
+
+" Number of spaces that a <Tab> in the file counts for.
+set tabstop=2
+" Number of spaces to use for each step of indent.
+set shiftwidth=2
+" Expand tab to spaces.
+set expandtab
+" Smart autoindenting.
+set autoindent
+set smartindent
+" Round indent to multiple of 'shiftwidth'.
+set shiftround
+" Enable modeline.
+set modeline
+
+set number
+
 syntax enable
 filetype plugin indent on
 
