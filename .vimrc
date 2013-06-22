@@ -32,7 +32,7 @@ Bundle 'git@github.com:jmcantrell/vim-virtualenv.git'
 Bundle 'git@github.com:davidhalter/jedi-vim.git'
 Bundle 'git@github.com:tpope/vim-repeat.git'
 Bundle 'git@github.com:tpope/vim-surround.git'
-
+Bundle 'git@github.com:jnwhiteh/vim-golang.git'
 " }}}
 
 " Ignore the case of normal letters
