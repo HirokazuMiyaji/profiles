@@ -17,8 +17,8 @@
 	cam = commit --amend -v
 	di = diff
 	dc = diff --cached
-	br = branch
-	bra = branch -a
+  br = branch
+  bra = branch -a
 	nbr = checkout -b
 	sw = checkout
 	um = \\!sh -c 'git pull \"$@\" && git mup' .
