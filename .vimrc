@@ -65,6 +65,31 @@ set modeline
 
 set number
 
+
+" backspace all enable delete
+set backspace=indent,eol,start
+
+" backup file disable
+set nowritebackup
+set nobackup
+set noswapfile
+
+" none display char display on
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
+
+" window move key map
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" change window size key map
+nnoremap <S-Left>  <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up>    <C-w>-<CR>
+nnoremap <S-Down>  <C-w>+<CR>
+
 syntax enable
 filetype plugin indent on
 
