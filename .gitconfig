@@ -2,7 +2,7 @@
 	name = Hirokazu Miyaji
 	email = hirokazu.miyaji@gmail.com
 [core]
-	excludesfile = /Users/hirokazumiyaji/.gitignore
+	excludesfile = ~/.gitignore
 	pager = less -FSX
 [color]
 	ui = true
