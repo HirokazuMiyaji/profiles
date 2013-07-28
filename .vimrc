@@ -186,6 +186,9 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'mappings': '<Plug>(ref-keyword
 " Indent Line
 NeoBundle 'Yggdroot/indentLine'
 
+" Power Line
+NeoBundle "Lokaltog/vim-powerline"
+
 " NeoBundle Configuration {{{
 
 "call neobundle#config('neocomplcache', {
@@ -279,7 +282,7 @@ NeoBundleCheck
 " }}}
 
 
-" Encoding {{{
+" Encoding" {{{
 
 if s:noplugin == 1
   set encoding=utf-8
@@ -318,7 +321,7 @@ if has("multi_byte_ime")
     set iminsert=0 imsearch=0
 endif
 
-" Search {{{
+" Search" {{{
 
 set ignorecase
 set smartcase
@@ -331,7 +334,7 @@ cnoremap <expr> ? getcmdtype() == "?" ? "\?" : "?"
 
 " }}}
 
-" Edit {{{
+" Edit" {{{
 
 set smarttab
 set expandtab
@@ -730,6 +733,13 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 " }}}
 
+" Power Line" {{{
+let bundle = neobundle#get('vim-powerline')
+function! bundle.hooks.on_source(bundle)
+  let g:Powerline_symbols = 'fancy'
+endfunction
+" }}}
+
 " Macro {{{
 
 command! Reloadrc source $MYVIMRC | if has("gui_running") | source $MYGVIMRC | endif
@@ -797,7 +807,6 @@ if !has('gui_running')
   highlight qf_warning_ucurl term=undercurl cterm=undercurl gui=undercurl guisp=Blue
 endif
 
-let &statusline='%F%m%r%h%w [FORMAT=%{&ff}] [ENC=%{&fileencoding}] [TYPE=%Y] [ASCII=%03.3b] [HEX=%02.2B] [POS=%04l,%04v][%p%%] [LEN=%L] %= [WORKON=%{virtualenv#statusline()}]'
 " }}}
 
 " load local vimrc
