@@ -4,6 +4,7 @@
 [core]
 	excludesfile = /Users/hirokazumiyaji/.gitignore
 	pager = less -FSX
+	quotepath = false
 [color]
 	ui = true
 [push]
