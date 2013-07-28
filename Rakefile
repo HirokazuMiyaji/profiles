@@ -29,7 +29,7 @@ end
 task :link=>[:unnecessary_file] do
   get_profiles.each do |f|
     file_name = get_home_path f
-    p "#{file_name} -> #{f}"
+    p "#{f} -> #{file_name}"
     FileUtils.ln_sf f, file_name
   end
 end
