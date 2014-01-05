@@ -126,8 +126,10 @@ NeoBundleFetch "Shougo/neobundle.vim"
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/unite-ssh'
-
 NeoBundle 'Shougo/unite-sudo'
+
+NeoBundle 'rhysd/unite-codic.vim', {'depends': ['koron/codic-vim', 'Shougo/unite.vim']}
+
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc'
 
@@ -723,12 +725,12 @@ endif
 " Jedi-vim" {{{
 let bundle = neobundle#get('jedi-vim')
 function! bundle.hooks.on_source(bundle)
-  let g:jedi#auto_vim_configuration = 0
-  let g:jedi#popup_select_first = 0
   let g:jedi#rename_command = "<Leader>R"
-  let g:jedi#goto_command = "<Leader>G"
+  let g:jedi#goto_assignments_command = "<Leader>G"
+  let g:jedi#goto_definititions_command = "<Leader>D"
   let g:jedi#popup_on_dot = 1
-  let g:jedi#show_function_definition = 0
+  let g:jedi#show_call_signatures = "1"
+  let g:jedi#popup_select_first = 0
   autocmd FileType python let b:did_ftplugin = 1
 endfunction
 " }}}
