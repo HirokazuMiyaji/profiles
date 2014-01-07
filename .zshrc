@@ -42,18 +42,16 @@ get_prompt() {
 
   get_prompt_color_indexes
   local user_color=${color_table[${result[1]}]}
-  local host_color=${color_table[${result[2]}]}
-  local shlvl_color=${color_table[${result[3]}]}
 
   # NOTE To preserve backward compatibility, here we're not using %F and %f.
   # See RPROMPT for vcs_info.
-  result="%{$fg[yellow]%}%T%{$reset_color%} %{$fg[${user_color}]%}%n%{$reset_color%}@%{$fg[${host_color}]%}%m%{$reset_color%}:%{$fg[${shlvl_color}]%}%2~%{$reset_color%} %(!.#.$) "
+  result="%{$fg[yellow]%}%T%{$reset_color%} %{$fg[${user_color}]%}%n%{$reset_color%}@%{$fg[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%2~%{$reset_color%} %(!.#.$) "
 }
 get_prompt
 PROMPT=$result
 
 # Show current directory on right prompt.
-RPROMPT="%{$fg[blue]%}%~%{$reset_color%}"
+RPROMPT="%{$fg[cyan]%}%~%{$reset_color%}"
 
 # Change directory if the command doesn't exist.
 setopt auto_cd
