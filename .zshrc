@@ -48,7 +48,8 @@ get_prompt() {
 
   # NOTE To preserve backward compatibility, here we're not using %F and %f.
   # See RPROMPT for vcs_info.
-  result="%{$fg[yellow]%}%T%{$reset_color%} %{$fg[${user_color}]%}%n%{$reset_color%}@%{$fg[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%2~%{$reset_color%} %(!.#.$) "
+  local beer=$'\xf0\x9f\x8d\xba'
+  result="%{$fg[red]%}(๑╹ڡ╹๑)%{$reset_color%}$beer  : %{$fg[cyan]%}%2~%{$reset_color%} %(!.#.$) "
 }
 get_prompt
 PROMPT=$result
