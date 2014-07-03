@@ -13,8 +13,11 @@ init_rbenv
 
 init_virtualenv
 
+init_go
+
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+aliases
 
 ## Zsh Basic Configurations {{{
 
@@ -245,6 +248,8 @@ bindkey -M emacs '^n' history-beginning-search-forward-end
 bindkey -M vicmd '\C-t' transpose-words
 bindkey -M viins '\C-t' transpose-words
 
+zle -N peco-src
+bindkey '^]' peco-src
 # }}}
 
 ## Zsh Terminal Title Changes {{{

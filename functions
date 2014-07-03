@@ -33,6 +33,7 @@ init_paths() {
       MANPATH=$man_path:$MANPATH
     fi
   done
+  PATH=$PATH:~/bin
 }
 
 init_editor() {
@@ -58,4 +59,36 @@ init_virtualenv() {
   alias mkve=mkvirtualenv
   alias rmve=rmvirtualenv
   alias lsve=lsvirtualenv
+}
+
+setup_go_env() {
+  local GOPATH=`which go`
+  local GODIR=`dirname $GOPATH`
+  local GOPATH_BREW_RELATIVE=`readlink $GOPATH`
+  local GOPATH_BREW=`dirname $GOPATH_BREW_RELATIVE`
+  export GOROOT=`cd $GODIR; cd $GOPATH_BREW/../libexec; pwd`
+}
+
+init_go() {
+  setup_go_env
+  export GOPATH=$HOME
+  export GOBIN=$GOROOT/bin
+  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+}
+
+p() { peco | while read LINE; do $@ $LINE; done }
+
+aliases() {
+  alias ll='ls -l'
+  alias git='hub'
+  alias chrome='open -a "Google Chrome" "$@"'
+}
+
+function peco-src() {
+  local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd  ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
 }

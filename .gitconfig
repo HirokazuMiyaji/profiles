@@ -2,7 +2,7 @@
 	name = Hirokazu Miyaji
 	email = hirokazu.miyaji@gmail.com
 [core]
-	excludesfile = /Users/hirokazumiyaji/.gitignore
+	excludesfile = ~/.gitignore
 	pager = less -FSX
 	quotepath = false
 [color]
@@ -41,3 +41,8 @@
 	xp = stash show -p
 [diff]
 	wordRegex = [@$%]*[[:alnum:]_]+|[^\n]
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[ghq]
+	root = ~/src
