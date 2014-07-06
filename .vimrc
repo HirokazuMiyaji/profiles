@@ -170,6 +170,10 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filetypes': ['coffee', 
 " ZenCoding
 NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {'filetypes': ['html', 'djangohtml']}}
 
+" TypeScript
+NeoBundleLazy 'leafgarland/typescript-vim', {'autoload': {'filetypes': ['ts', 'typescript']}}
+NeoBundleLazy 'clausreinke/typescript-tools', {'autoload': {'filetypes': ['ts', 'typescript']}}
+
 " Python {{{
 
 NeoBundleLazy 'lambdalisue/vim-django-support', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
