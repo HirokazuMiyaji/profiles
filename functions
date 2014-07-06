@@ -92,3 +92,7 @@ function peco-src() {
   fi
   zle clear-screen
 }
+
+function agvim() {
+  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c" $2 " " $1}')
+}
