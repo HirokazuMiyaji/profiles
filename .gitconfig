@@ -46,3 +46,5 @@
 	smudge = git-media-smudge %f
 [ghq]
 	root = ~/src
+[fetch]
+	prune = true
