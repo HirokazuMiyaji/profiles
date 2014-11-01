@@ -174,6 +174,15 @@ NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {'filetypes': ['html', 'django
 NeoBundleLazy 'leafgarland/typescript-vim', {'autoload': {'filetypes': ['ts', 'typescript']}}
 NeoBundleLazy 'clausreinke/typescript-tools', {'autoload': {'filetypes': ['ts', 'typescript']}}
 
+" Go {{
+if filereadable("$GOROOT/misc/vim")
+  set rtp+=$GOROOT/misc/vim
+endif
+if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
+  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+endi
+" }}}
+
 " Python {{{
 
 NeoBundleLazy 'lambdalisue/vim-django-support', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
@@ -376,7 +385,7 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 set updatetime=1000
 
 " set swap directory
-set directory& directory-=.
+set directory=/tmp
 if v:version >= 703
   set undofile
   let &undodir=&directory
@@ -399,7 +408,7 @@ set switchbuf=useopen
 set nowritebackup
 set nobackup
 set noswapfile
-set backupdir=~/.vim/tmp
+set backupdir=~/tmp
 
 " set default lang for spell check
 set spelllang=en_us
