@@ -17,6 +17,8 @@ init_go
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+init_envs
+
 aliases
 
 ## Zsh Basic Configurations {{{
