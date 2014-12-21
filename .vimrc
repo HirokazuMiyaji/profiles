@@ -175,7 +175,7 @@ NeoBundleLazy 'leafgarland/typescript-vim', {'autoload': {'filetypes': ['ts', 't
 NeoBundleLazy 'clausreinke/typescript-tools', {'autoload': {'filetypes': ['ts', 'typescript']}}
 
 " Go {{
-if filereadable("$GOROOT/misc/vim")
+if filereadable("${GOROOT}/misc/vim")
   set rtp+=$GOROOT/misc/vim
 endif
 if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
