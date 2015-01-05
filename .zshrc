@@ -282,3 +282,7 @@ esac
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi
