@@ -115,13 +115,9 @@ call neobundle#rc(s:bundle_root)
 " NeoBundle {{{
 NeoBundleFetch "Shougo/neobundle.vim"
 
-"NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplete.vim'
 
-"NeoBundle 'Shougo/neocomplete.vim'
-
-"NeoBundle 'Shougo/neocomplcache-rsense'
-
-"NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet'
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-build'
@@ -174,6 +170,20 @@ NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {'filetypes': ['html', 'django
 NeoBundleLazy 'leafgarland/typescript-vim', {'autoload': {'filetypes': ['ts', 'typescript']}}
 NeoBundleLazy 'clausreinke/typescript-tools', {'autoload': {'filetypes': ['ts', 'typescript']}}
 
+" Syntastic
+NeoBundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
+let g:syntastic_ruby_checkers = ['rubocop']
+
+" Go {{
+if filereadable("$GOROOT/misc/vim")
+  set rtp+=$GOROOT/misc/vim
+endif
+if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
+  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+endi
+" }}}
+
 " Python {{{
 
 NeoBundleLazy 'lambdalisue/vim-django-support', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
@@ -186,7 +196,21 @@ NeoBundle 'davidhalter/jedi-vim'
 
 " Ruby {{{
 NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'mappings': '<Plug>(ref-keyword)', 'file_types': 'ruby'}}
-
+NeoBundle 'tpope/vim-rails', {'autoload': {'filetypes': ['haml', 'ruby', 'eruby']}}
+NeoBundleLazy 'alpaca-tc/vim-endwise.git', {'autoload' : {'insert' : 1}}
+NeoBundleLazy 'alpaca-tc/alpaca_tags', {'depends': 'Shougo/vimproc', 'autoload' : {'commands': ['TagsUpdate', 'TagsSet', 'TagsBundle']}}
+NeoBundleLazy 'basyura/unite-rails', {
+  \ 'depends' : 'Shougo/unite.vim',
+  \ 'autoload' : {
+  \   'unite_sources' : [
+  \     'rails/bundle', 'rails/bundled_gem', 'rails/config',
+  \     'rails/controller', 'rails/db', 'rails/destroy', 'rails/features',
+  \     'rails/gem', 'rails/gemfile', 'rails/generate', 'rails/git', 'rails/helper',
+  \     'rails/heroku', 'rails/initializer', 'rails/javascript', 'rails/lib', 'rails/log',
+  \     'rails/mailer', 'rails/model', 'rails/rake', 'rails/route', 'rails/schema', 'rails/spec',
+  \     'rails/stylesheet', 'rails/view'
+  \  ]
+  \ }}
 " }}}
 
 " Indent Line
@@ -376,7 +400,7 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 set updatetime=1000
 
 " set swap directory
-set directory& directory-=.
+set directory=/tmp
 if v:version >= 703
   set undofile
   let &undodir=&directory
@@ -399,7 +423,7 @@ set switchbuf=useopen
 set nowritebackup
 set nobackup
 set noswapfile
-set backupdir=~/.vim/tmp
+set backupdir=~/tmp
 
 " set default lang for spell check
 set spelllang=en_us
@@ -488,15 +512,15 @@ endif
 " Plugin:" {{{
 
 " neocomplete.vim" {{{
-"let g:neocomplete#enable_at_startup = 1
 
 "let bundle = neobundle#get('neocomplete.vim')
 "function! bundle.hooks.on_source(bundle)
+"  let g:neocomplete#enable_at_startup = 1
 "  " Use smartcase.
 "  let g:neocomplete#enable_smart_case = 1
 "  " Use fuzzy competion.
 "  let g:neocomplete#enable_fuzzy_completion = 1
-
+"
 "  " Set minimun syntax keyword length.
 "  let g:neocomplete#sources#syntax#min_keyword_length = 3
 "  " Set auto completion length.
@@ -532,14 +556,14 @@ endif
 "  let g:neocomplete#enable_auto_close_preview = 1
 "
 "  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::\w*'
-
+"
 "  " Define keyword patterns
 "  if !exists('g:neocomplete#keyword_patterns')
 "    let g:neocomplete#keyword_patterns = {}
 "  endif
 "  let g:neocomplete#keyword_patterns._ = '[0-9a-zA-Z:#_]\+'
 "  let g:neocomplete#keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::\w*'
-
+"
 "  let g:neocomplete#sources#vim#complete_functions = {
 "    \   'Ref': 'ref#complete',
 "    \   'Unite': 'unite#complete_source',
@@ -549,10 +573,10 @@ endif
 "    \   'VimShell': 'vimshell#complete',
 "    \   'VimFiler': 'vimfiler#complete',
 "    \ }
-
+"
 "  call neocomplete#custom#source('look', 'min_pattern_length', 4)
-
-  " mappings."{{{
+"
+"  " mappings."{{{
 "  " <C-f> <C-b>: page move.
 "  inoremap <expr><C-f> pumvisible() ? "\<PageDown>" : "\<Right>"
 "  inoremap <expr><C-b> pumvisible() ? "\<PageUp>" : "\<Left>"
@@ -603,127 +627,21 @@ endif
 "  inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 "  " }}}
 "endfunction
-" }}}
-
-"" neocomplcache.vim"{{{
-"" Use neocomplcache.
-"let g:neocomplcache_enable_at_startup = 0
-"
-"let bundle = neobundle#get('neocomplcache')
-"function! bundle.hooks.on_source(bundle)
-"  " Use smartcase.
-"  let g:neocomplcache_enable_smart_case = 0
-"  " Use camel case completion.
-"  let g:neocomplcache_enable_camel_case_completion = 0
-"  " Use underbar completion.
-"  let g:neocomplcache_enable_underbar_completion = 0
-"  " Use fuzzy completion.
-"  let g:neocomplcache_enable_fuzzy_completion = 0
-"
-"  " Set minimum syntax keyword length.
-"  let g:neocomplcache_min_syntax_length = 3
-"  " Set auto completion length.
-"  let g:neocomplcache_auto_completion_start_length = 2
-"  " Set manual completion length.
-"  let g:neocomplcache_manual_completion_start_length = 0
-"  " Set minimum keyword length.
-"  let g:neocomplcache_min_keyword_length = 3
-"
-"  let g:neocomplcache_enable_cursor_hold_i = 0
-"  let g:neocomplcache_cursor_hold_i_time = 300
-"  let g:neocomplcache_enable_insert_char_pre = 0
-"  let g:neocomplcache_enable_prefetch = 0
-"  let g:neocomplcache_skip_auto_completion_time = '0.6'
-"
-"  " For auto select.
-"  let g:neocomplcache_enable_auto_select = 1
-"
-"  let g:neocomplcache_enable_auto_delimiter = 1
-"
-"  let g:neocomplcache_disable_auto_select_buffer_name_pattern = '\[Command Line\]'
-"
-"  let g:neocomplcache_max_list = 100
-"  let g:neocomplcache_force_overwrite_completefunc = 1
-"  if !exists('g:neocomplcache_omni_patterns')
-"    let g:neocomplcache_omni_patterns = {}
-"  endif
-"  if !exists('g:neocomplcache_omni_functions')
-"    let g:neocomplcache_omni_functions = {}
-"  endif
-"  if !exists('g:neocomplcache_force_omni_patterns')
-"    let g:neocomplcache_force_omni_patterns = {}
-"  endif
-"  let g:neocomplcache_enable_auto_close_preview = 1
-"
-"  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"
-"  " For clang_complete.
-"  let g:neocomplcache_force_overwrite_completefunc = 1
-"  let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"  let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"
-"  let g:clang_complete_auto = 0
-"  let g:clang_auto_select = 0
-"  let g:clang_use_library = 1
-"
-"  " Define keyword pattern.
-"  if !exists('g:neocomplcache_keyword_patterns')
-"    let g:neocomplcache_keyword_patterns = {}
-"  endif
-"
-"  let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
-"  let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"
-"  let g:neocomplcache_vim_completefuncs = {
-"    \   'Ref' : 'ref#complete',
-"    \   'Unite' : 'unite#complete_source',
-"    \   'VimShellExecute' : 'vimshell#vimshell_execute_complete',
-"    \   'VimShellInteractive' : 'vimshell#vimshell_execute_complete',
-"    \   'VimShellTerminal' : 'vimshell#vimshell_execute_complete',
-"    \   'VimShell' : 'vimshell#complete',
-"    \   'VimFiler' : 'vimfiler#complete',
-"    \   'Vinarise' : 'vinarise#complete',
-"    \ }
-"
-"  imap <expr> `  pumvisible() ? "\<Plug>(neocomplcache_start_unite_quick_match)" : '`'
-"endfunction
-"
-"function! CompleteFiles(findstart, base)
-"  if a:findstart
-"    " Get cursor word.
-"    let cur_text = strpart(getline('.'), 0, col('.') - 1)
-"
-"    return match(cur_text, '\f*$')
-"  endif
-"
-"  let words = split(expand(a:base . '*'), '\n')
-"  let list = []
-"  let cnt = 0
-"  for word in words
-"    call add(list, {'word': word, 'abbr': printf('%3d: %s', cnt, word), 'menu': 'file_complete'})
-"    let cnt += 1
-"  endfor
-"
-"  return {'words': list, 'refresh': 'always'}
-"endfunction
-"
-"unlet bundle
-"
 "" }}}
 
 " neosnippet.vim"{{{
-"let bundle = neobundle#get('neosnippet')
-"function! bundle.hooks.on_source(bundle)
-"  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-"  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-"  xmap <C-k> <Plug>(neosnippet_expand_target)
+let bundle = neobundle#get('neosnippet')
+function! bundle.hooks.on_source(bundle)
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
 
-"  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#enable_snipmate_compatibility = 1
 
-"  let g:neosnippet#snippets_directory = '~/.vim/snippets'
-"endfunction
+  let g:neosnippet#snippets_directory = '~/.vim/snippets'
+endfunction
 
-"unlet bundle
+unlet bundle
 " }}}
 
 " Jedi-vim" {{{
@@ -820,3 +738,5 @@ let s:local_vimrc = expand('~/.vimrc.local')
 if filereadable(s:local_vimrc)
   execute 'source ' . s:local_vimrc
 endif
+
+autocmd BufNewFile *.py 0r $HOME/.vim/template/python.txt
