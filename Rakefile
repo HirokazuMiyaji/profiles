@@ -16,14 +16,14 @@ def get_profiles
   end
   files
 end
-  
+
 def get_home_path(f)
   [ENV["HOME"], File::basename(f)].join('/')
 end
 
 task :unnecessary_file do
-  remove_all "#{ENV["HOME"]}/.profiles/*~" 
-  remove_all "#{ENV["HOME"]}/.profiles/\.*~" 
+  remove_all "#{ENV["HOME"]}/.profiles/*~"
+  remove_all "#{ENV["HOME"]}/.profiles/\.*~"
 end
 
 task :link=>[:unnecessary_file] do
