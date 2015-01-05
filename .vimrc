@@ -176,12 +176,8 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " Go {{
-if filereadable("$GOROOT/misc/vim")
-  set rtp+=$GOROOT/misc/vim
-endif
-if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
-  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-endi
+NeoBundle 'google/vim-ft-go'
+NeoBundle 'vim-jp/vim-go-extra'
 " }}}
 
 " Python {{{
