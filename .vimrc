@@ -149,6 +149,9 @@ NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {'filetypes': 'less'}}
 " syntax for SASS
 NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': 'sass'}}
 
+" syntax for js
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+
 " gist
 NeoBundleLazy 'mattn/gist-vim', {'depends': ['mattn/webapi-vim'], 'autoload': {'commands': ['Gist']}}
 
@@ -212,8 +215,8 @@ NeoBundleLazy 'basyura/unite-rails', {
 " Indent Line
 NeoBundle 'Yggdroot/indentLine'
 
-" Power Line
-NeoBundle "Lokaltog/vim-powerline"
+" Light Line
+NeoBundle "itchyny/lightline.vim"
 
 " NeoBundle Configuration {{{
 
@@ -650,13 +653,6 @@ function! bundle.hooks.on_source(bundle)
   let g:jedi#show_call_signatures = "1"
   let g:jedi#popup_select_first = 0
   autocmd FileType python let b:did_ftplugin = 1
-endfunction
-" }}}
-
-" Power Line" {{{
-let bundle = neobundle#get('vim-powerline')
-function! bundle.hooks.on_source(bundle)
-  let g:Powerline_symbols = 'fancy'
 endfunction
 " }}}
 

@@ -5,6 +5,8 @@ source "${profiles}/functions"
 # Avoid 'no matches found' error.
 setopt nullglob
 
+init_locale
+
 init_paths
 
 init_editor

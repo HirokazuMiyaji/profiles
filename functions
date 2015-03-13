@@ -17,6 +17,17 @@ get_prompt_color_indexes() {
   result=($user $host $shlvl)
 }
 
+init_locale() {
+  export LANG="ja_JP.UTF-8"
+  export LC_COLLATE="ja_JP.UTF-8"
+  export LC_CTYPE="UTF-8"
+  export LC_MESSAGES="ja_JP.UTF-8"
+  export LC_MONETARY="ja_JP.UTF-8"
+  export LC_NUMERIC="ja_JP.UTF-8"
+  export LC_TIME="ja_JP.UTF-8"
+  export LC_ALL="ja_JP.UTF-8"
+}
+
 init_paths() {
   for i in /opt/local /usr/local; do
     local bin_path="$i/bin"
@@ -99,4 +110,5 @@ function agvim() {
 
 init_envs() {
   export DOCKER_HOST=tcp://127.0.0.1:4243
+  export PATH=$HOME/.nodebrew/current/bin:$PATH
 }
