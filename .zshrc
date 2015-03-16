@@ -17,6 +17,8 @@ init_virtualenv
 
 init_go
 
+init_embulk
+
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 init_envs
