@@ -65,7 +65,11 @@ init_virtualenv() {
   if [ -d $WORKON_HOME ]; then
     mkdir -p $WORKON_HOME
   fi
-  source `which virtualenvwrapper.sh`
+
+  which virtualenvwrapper.sh > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    source `which virtualenvwrapper.sh`
+  fi
 
   alias mkve=mkvirtualenv
   alias rmve=rmvirtualenv
