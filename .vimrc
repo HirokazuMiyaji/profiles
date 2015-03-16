@@ -109,7 +109,7 @@ endif
 
 let g:neobundle#enable_tail_path = 1
 
-call neobundle#rc(s:bundle_root)
+call neobundle#begin(s:bundle_root)
 " }}}
 
 " NeoBundle {{{
@@ -300,6 +300,8 @@ call neobundle#config('unite-outline', {
   \ })
 
 " }}}
+
+call neobundle#end()
 
 filetype plugin indent on
 
