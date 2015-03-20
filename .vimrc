@@ -109,7 +109,7 @@ endif
 
 let g:neobundle#enable_tail_path = 1
 
-call neobundle#rc(s:bundle_root)
+call neobundle#begin(s:bundle_root)
 " }}}
 
 " NeoBundle {{{
@@ -151,6 +151,8 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': 'sass'}}
 
 " javascript
 NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
+
+" syntax for js
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 " gist
@@ -186,6 +188,9 @@ endif
 if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
   exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 endi
+NeoBundle 'dgryski/vim-godef'
+NeoBundle 'vim-jp/vim-go-extra'
+set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
 " }}}
 
 " Python {{{
@@ -220,8 +225,8 @@ NeoBundleLazy 'basyura/unite-rails', {
 " Indent Line
 NeoBundle 'Yggdroot/indentLine'
 
-" Power Line
-NeoBundle "Lokaltog/vim-powerline"
+" Light Line
+NeoBundle "itchyny/lightline.vim"
 
 " NeoBundle Configuration {{{
 
@@ -305,6 +310,8 @@ call neobundle#config('unite-outline', {
   \ })
 
 " }}}
+
+call neobundle#end()
 
 filetype plugin indent on
 
@@ -661,13 +668,6 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 " }}}
 
-" Power Line" {{{
-let bundle = neobundle#get('vim-powerline')
-function! bundle.hooks.on_source(bundle)
-  let g:Powerline_symbols = 'fancy'
-endfunction
-" }}}
-
 " Macro {{{
 
 command! Reloadrc source $MYVIMRC | if has("gui_running") | source $MYGVIMRC | endif
@@ -735,6 +735,14 @@ if !has('gui_running')
   highlight qf_warning_ucurl term=undercurl cterm=undercurl gui=undercurl guisp=Blue
 endif
 
+" }}}
+
+" Go "{{{
+set path+=$GOPATH/src/**
+let g:gofmt_command = 'goimports'
+au BufWritePre *.go Fmt
+au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
+au FileType go compiler go
 " }}}
 
 " load local vimrc

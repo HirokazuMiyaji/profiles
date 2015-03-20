@@ -5,6 +5,8 @@ source "${profiles}/functions"
 # Avoid 'no matches found' error.
 setopt nullglob
 
+init_locale
+
 init_paths
 
 init_editor
@@ -14,6 +16,8 @@ init_rbenv
 init_virtualenv
 
 init_go
+
+init_embulk
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
@@ -299,3 +303,7 @@ source '/Users/HirokazuMiyaji/google-cloud-sdk/completion.zsh.inc'
 export DOCKER_HOST=tcp://192.168.59.103:2375
 unset DOCKER_CERT_PATH
 unset DOCKER_TLS_VERIFY
+
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi

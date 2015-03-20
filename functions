@@ -17,6 +17,17 @@ get_prompt_color_indexes() {
   result=($user $host $shlvl)
 }
 
+init_locale() {
+  export LANG="ja_JP.UTF-8"
+  export LC_COLLATE="ja_JP.UTF-8"
+  export LC_CTYPE="UTF-8"
+  export LC_MESSAGES="ja_JP.UTF-8"
+  export LC_MONETARY="ja_JP.UTF-8"
+  export LC_NUMERIC="ja_JP.UTF-8"
+  export LC_TIME="ja_JP.UTF-8"
+  export LC_ALL="ja_JP.UTF-8"
+}
+
 init_paths() {
   for i in /opt/local /usr/local; do
     local bin_path="$i/bin"
@@ -54,7 +65,11 @@ init_virtualenv() {
   if [ -d $WORKON_HOME ]; then
     mkdir -p $WORKON_HOME
   fi
-  source `which virtualenvwrapper.sh`
+
+  which virtualenvwrapper.sh > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    source `which virtualenvwrapper.sh`
+  fi
 
   alias mkve=mkvirtualenv
   alias rmve=rmvirtualenv
@@ -99,4 +114,9 @@ function agvim() {
 
 init_envs() {
   export DOCKER_HOST=tcp://127.0.0.1:4243
+  export PATH=$HOME/.nodebrew/current/bin:$PATH
+}
+
+init_embulk() {
+  export PATH=$PATH:$HOME/.embulk/bin
 }
