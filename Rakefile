@@ -50,11 +50,25 @@ task :install_neobundle do
 end
 
 task :install_homebrew do
-  unless FileTest.exist?("/usr/local/bin/brew") 
+  unless FileTest.exist?("/usr/local/bin/brew")
     spawn('ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"', STDERR=>STDOUT)
   end
 end
 
-task :all =>[:link, :install_neobundle, :install_homebrew]
+task :install_software do
+  spawn('brew update', STDERR=>STDOUT)
+  spawn('brew upgrade', STDERR=>STDOUT)
+  File.open("./Brewfile", "r:utf-8") do |f|
+    f.each_line do |line|
+      if line.start_with? "tap"
+        spawn("brew #{line}")
+      else
+        spawn("brew install #{line}")
+      end
+    end
+  end
+end
+
+task :all =>[:link, :install_neobundle, :install_homebrew, :install_software]
 
 task :default => [:all]

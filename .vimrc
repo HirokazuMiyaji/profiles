@@ -179,8 +179,9 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " Go {{
-NeoBundle 'google/vim-ft-go'
+NeoBundle 'dgryski/vim-godef'
 NeoBundle 'vim-jp/vim-go-extra'
+set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
 " }}}
 
 " Python {{{
@@ -725,6 +726,14 @@ if !has('gui_running')
   highlight qf_warning_ucurl term=undercurl cterm=undercurl gui=undercurl guisp=Blue
 endif
 
+" }}}
+
+" Go "{{{
+set path+=$GOPATH/src/**
+let g:gofmt_command = 'goimports'
+au BufWritePre *.go Fmt
+au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
+au FileType go compiler go
 " }}}
 
 " load local vimrc
