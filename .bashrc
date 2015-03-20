@@ -14,3 +14,6 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+
+# added by travis gem
+[ -f /Users/HirokazuMiyaji/.travis/travis.sh ] && source /Users/HirokazuMiyaji/.travis/travis.sh
