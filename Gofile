@@ -1,0 +1,8 @@
+golang.org/x/tools/cmd/goimports
+golang.org/x/tools/cmd/godoc
+golang.org/x/tools/cmd/vet
+golang.org/x/tools/cmd/cover
+github.com/nsf/gocode
+github.com/golang/lint/golint
+github.com/rogpeppe/godef
+github.com/jstemmer/gotags
