@@ -60,6 +60,11 @@ init_rbenv() {
   fi
 }
 
+init_pyenv() {
+  export PATH=$HOME.pyenv/bin:$PATH
+  which pyenv > /dev/null 2>&1 && eval "$(pyenv init -)"
+}
+
 init_virtualenv() {
   export WORKON_HOME=$HOME/.virtualenvs
   if [ -d $WORKON_HOME ]; then
@@ -119,4 +124,8 @@ init_envs() {
 
 init_embulk() {
   export PATH=$PATH:$HOME/.embulk/bin
+}
+
+init_go_appengine() {
+  export PATH=$PATH:$HOME/.go_appengine
 }
