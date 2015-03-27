@@ -149,6 +149,9 @@ NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {'filetypes': 'less'}}
 " syntax for SASS
 NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': 'sass'}}
 
+" javascript
+NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
+
 " syntax for js
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
@@ -179,6 +182,12 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " Go {{
+if filereadable("${GOROOT}/misc/vim")
+  set rtp+=$GOROOT/misc/vim
+endif
+if filereadable("$GOPATH/src/github.com/nsf/gocode/vim")
+  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+endi
 NeoBundle 'dgryski/vim-godef'
 NeoBundle 'vim-jp/vim-go-extra'
 set rtp^=$GOPATH/src/github.com/nsf/gocode/vim

@@ -13,11 +13,15 @@ init_editor
 
 init_rbenv
 
+init_pyenv
+
 init_virtualenv
 
 init_go
 
 init_embulk
+
+init_go_appengine
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
@@ -286,6 +290,32 @@ esac
 
 # }}}
 
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+### Google Cloud Platform
+## The next line updates PATH for the Google Cloud SDK.
+source '/Users/HirokazuMiyaji/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables bash completion for gcloud.
+source '/Users/HirokazuMiyaji/google-cloud-sdk/completion.zsh.inc'
+
+# added by travis gem
+[ -f /Users/HirokazuMiyaji/.travis/travis.sh ] && source /Users/HirokazuMiyaji/.travis/travis.sh
+
+# Boot2Docker
+export DOCKER_HOST=tcp://192.168.59.103:2375
+unset DOCKER_CERT_PATH
+unset DOCKER_TLS_VERIFY
+
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
+
+# The next line updates PATH for the Google Cloud SDK.
+source "$HOME/google-cloud-sdk/path.zsh.inc"
+
+# The next line enables bash completion for gcloud.
+source "$HOME/google-cloud-sdk/completion.zsh.inc"
+
+#alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
