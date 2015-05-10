@@ -1,6 +1,6 @@
-profiles=~/.profiles
+PROFILES=~/.profiles
 
-source "${profiles}/functions"
+source "${PROFILES}/functions"
 
 # Avoid 'no matches found' error.
 setopt nullglob
@@ -11,21 +11,9 @@ init_paths
 
 init_editor
 
-init_rbenv
-
-init_pyenv
-
-init_virtualenv
-
-init_go
-
-init_embulk
-
-init_go_appengine
+init_envs
 
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-init_envs
 
 aliases
 
@@ -55,11 +43,8 @@ get_prompt() {
 
   get_prompt_color_indexes
   local user_color=${color_table[${result[1]}]}
-
-  # NOTE To preserve backward compatibility, here we're not using %F and %f.
-  # See RPROMPT for vcs_info.
-  local beer=$'\xf0\x9f\x8d\xba'
-  result="%{$fg[red]%}(๑╹ڡ╹๑)%{$reset_color%}$beer  : %{$fg[cyan]%}%2~%{$reset_color%} %(!.#.$) "
+  local user_lowercase=`echo $USERNAME:l`
+  result="%{$fg[${user_color}]%}${user_lowercase}%{$reset_color%}:%{$fg[${shlvl_color}]%}%2~%{$reset_color%} %(!.#.$) "
 }
 get_prompt
 PROMPT=$result
@@ -294,28 +279,10 @@ esac
 export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Google Cloud Platform
-## The next line updates PATH for the Google Cloud SDK.
-source '/Users/HirokazuMiyaji/google-cloud-sdk/path.zsh.inc'
+source "${PROFILES}/env/google"
 
-# The next line enables bash completion for gcloud.
-source '/Users/HirokazuMiyaji/google-cloud-sdk/completion.zsh.inc'
+### Travis ci
+source "${PROFILES}/env/travis"
 
-# added by travis gem
-[ -f /Users/HirokazuMiyaji/.travis/travis.sh ] && source /Users/HirokazuMiyaji/.travis/travis.sh
-
-# Boot2Docker
-export DOCKER_HOST=tcp://192.168.59.103:2375
-unset DOCKER_CERT_PATH
-unset DOCKER_TLS_VERIFY
-
-if [ -f ~/.zshrc.local ]; then
-  source ~/.zshrc.local
-fi
-
-# The next line updates PATH for the Google Cloud SDK.
-source "$HOME/google-cloud-sdk/path.zsh.inc"
-
-# The next line enables bash completion for gcloud.
-source "$HOME/google-cloud-sdk/completion.zsh.inc"
-
-#alias goapp=~/google-cloud-sdk/platform/google_appengine/goapp
+LOCAL_ZSHRC="${HOME}/.zshrc.local"
+[ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
