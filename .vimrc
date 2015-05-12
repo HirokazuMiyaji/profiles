@@ -199,8 +199,6 @@ NeoBundleLazy 'lambdalisue/vim-django-support', {'autoload': {'filetypes': ['pyt
 
 NeoBundleLazy 'jmcantrell/vim-virtualenv', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
 
-NeoBundle 'davidhalter/jedi-vim'
-
 " }}}
 
 " Ruby {{{
@@ -293,14 +291,6 @@ call neobundle#config('vimshell', {
   \       'VimShellExecute', 'VimShellInteractive', 'VimShellTerminal', 'VimShellPop'
   \     ],
   \     'mappings': ['<Plug>(vimshell_switch)']
-  \   }
-  \ })
-
-call neobundle#config('jedi-vim', {
-  \   'lazy': 1,
-  \   'autoload': {
-  \     'filetypes': ['python', 'python3', 'djangohtml'],
-  \     'build': {'mac': 'pip install jedi', 'unix': 'pip install jedi'}
   \   }
   \ })
 
@@ -653,19 +643,6 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 
 unlet bundle
-" }}}
-
-" Jedi-vim" {{{
-let bundle = neobundle#get('jedi-vim')
-function! bundle.hooks.on_source(bundle)
-  let g:jedi#rename_command = "<Leader>R"
-  let g:jedi#goto_assignments_command = "<Leader>G"
-  let g:jedi#goto_definititions_command = "<Leader>D"
-  let g:jedi#popup_on_dot = 1
-  let g:jedi#show_call_signatures = "1"
-  let g:jedi#popup_select_first = 0
-  autocmd FileType python let b:did_ftplugin = 1
-endfunction
 " }}}
 
 " Macro {{{
