@@ -181,6 +181,9 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
 let g:syntastic_ruby_checkers = ['rubocop']
 
+" Rust
+NeoBundleLazy 'rust-lang/rust.vim', {'autoload': {'filetypes': ['rs', 'rust']}}
+
 " Go {{
 if filereadable("${GOROOT}/misc/vim")
   set rtp+=$GOROOT/misc/vim
@@ -198,6 +201,8 @@ set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
 NeoBundleLazy 'lambdalisue/vim-django-support', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
 
 NeoBundleLazy 'jmcantrell/vim-virtualenv', {'autoload': {'filetypes': ['python', 'python3', 'djangohtml']}}
+
+NeoBundleLazy 'tell-k/vim-autopep8', {'autoload': {'filetypes': ['python', 'python3']}}
 
 " }}}
 
