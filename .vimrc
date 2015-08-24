@@ -185,7 +185,7 @@ let g:syntastic_ruby_checkers = ['rubocop']
 NeoBundleLazy 'rust-lang/rust.vim', {'autoload': {'filetypes': ['rs', 'rust']}}
 
 " Elixir
-NeoBundleLazy 'elixir-lang/vim-elixir'
+NeoBundle 'elixir-lang/vim-elixir', {'autoload': {'filetypes': ['ex', 'exs']}}
 
 " Go {{
 if filereadable("${GOROOT}/misc/vim")
