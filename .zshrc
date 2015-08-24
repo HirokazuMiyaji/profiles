@@ -286,3 +286,5 @@ source "${PROFILES}/env/travis"
 
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
+
+[ -s "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" ] && . "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" # Load dnvm
