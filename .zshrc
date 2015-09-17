@@ -289,3 +289,8 @@ source "${PROFILES}/env/swift"
 
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
+
+# docker env
+[ "`docker-machine status default`" = "Running" ] && eval "$(docker-machine env default)"
+
+[ -s "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" ] && . "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" # Load dnvm
