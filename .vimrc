@@ -181,6 +181,9 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': ['ruby']}
 let g:syntastic_ruby_checkers = ['rubocop']
 
+" Elixir
+NeoBundle "elixir-lang/vim-elixir"
+
 " Go {{
 if filereadable("${GOROOT}/misc/vim")
   set rtp+=$GOROOT/misc/vim
