@@ -284,5 +284,8 @@ source "${PROFILES}/env/google"
 ### Travis ci
 source "${PROFILES}/env/travis"
 
+### Swift
+source "${PROFILES}/env/swift"
+
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
