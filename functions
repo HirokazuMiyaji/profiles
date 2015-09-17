@@ -106,7 +106,6 @@ init_envs() {
   init_ruby
   init_python
   init_go
-  export DOCKER_HOST=tcp://127.0.0.1:4243
   export PATH=$HOME/.nodebrew/current/bin:$PATH
   export PATH=$PATH:$HOME/.embulk/bin
 }
