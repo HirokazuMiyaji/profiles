@@ -150,7 +150,7 @@ NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {'filetypes': 'less'}}
 NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': 'sass'}}
 
 " javascript
-" NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'othree/yajs.vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
 
 " syntax for js
@@ -729,6 +729,10 @@ let g:gofmt_command = 'goimports'
 au BufWritePre *.go Fmt
 au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
 au FileType go compiler go
+" }}}
+
+" Swift "{{{
+NeoBundle 'toyamarinyon/vim-swift'
 " }}}
 
 " load local vimrc
