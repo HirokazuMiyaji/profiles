@@ -64,6 +64,11 @@ init_python() {
   which pyenv > /dev/null 2>&1 && eval "$(pyenv init -)"
 }
 
+init_php() {
+  export PATH="/Users/hirokazu/.phpenv/bin:$PATH"
+  which phpenv > /dev/null 2>&1 && eval "$(phpenv init -)"
+}
+
 setup_go_env() {
   local GOPATH=`which go`
   local GODIR=`dirname $GOPATH`
@@ -105,6 +110,7 @@ function agvim() {
 init_envs() {
   init_ruby
   init_python
+  init_php
   init_go
   export PATH=$HOME/.nodebrew/current/bin:$PATH
   export PATH=$PATH:$HOME/.embulk/bin

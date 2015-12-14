@@ -4,9 +4,11 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-source "$HOME/google-cloud-sdk/path.bash.inc"
+GCP_PATH="$HOME/google-cloud-sdk/path.bash.inc"
+[ -s $GCP_PATH ] && source $GCP_PATH
 
 # The next line enables bash completion for gcloud.
-source "$HOME/google-cloud-sdk/completion.bash.inc"
+GCP_COMPLETION="$HOME/google-cloud-sdk/completion.bash.inc"
+[ -s $GCP_COMPLETION ] && source $GCP_COMPLETION
 
 [ -s "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" ] && . "/Users/hirokazu.miyaji/.dnx/dnvm/dnvm.sh" # Load dnvm

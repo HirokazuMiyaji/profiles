@@ -150,10 +150,11 @@ NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {'filetypes': 'less'}}
 NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {'filetypes': 'sass'}}
 
 " javascript
-NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
+" NeoBundleLazy 'marijnh/tern_for_vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
+NeoBundleLazy 'othree/yajs.vim', {'build': {'others': 'npm install'}, 'autoload': {'filetypes': ['javascript']}}
 
 " syntax for js
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 " gist
 NeoBundleLazy 'mattn/gist-vim', {'depends': ['mattn/webapi-vim'], 'autoload': {'commands': ['Gist']}}
