@@ -184,11 +184,9 @@ function! s:ChangeCurrentDir(directory, bang)
   endif
 endfunction
 
-autocmd MyAutoCmd BufNewFile,BufReadPost *
-call s:vimrc_local(expand('<afile>:p:h'))
+autocmd MyAutoCmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
 function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local',
-  escape(a:loc, ' ') . ';', -1)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
   for i in reverse(filter(files, 'filereadable(v:val)'))
     source `=i`
   endfor
