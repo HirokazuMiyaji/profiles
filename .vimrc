@@ -152,3 +152,44 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%,eol:¬
 " disable bells
 set t_vb=
 set novisualbell
+
+" open quickfix after make,grep, etc.
+autocmd MyAutoCmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+" quit quickfix, help ... with q
+autocmd MyAutoCmd FileType help,qf nnoremap <buffer> q <C-w>c
+
+" save the file as root with "sudo"
+cmap w!! w !sudo tee > /dev/null %
+
+" automatically create the directory if it does not exist
+function! s:mkdir(dir, force)
+  if !isdirectory(a:dir) && (a:force || input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+  endif
+endfunction
+
+autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
+
+" automatically change the directory when starting the vim
+autocmd MyAutoCmd VimEnter * call s:ChangeCurrentDir('', '')
+function! s:ChangeCurrentDir(directory, bang)
+  if a:directory == ''
+    lcd %:p:h
+  else
+    execute 'lcd' . a:directory
+  endif
+
+  if a:bang == ''
+    pwd
+  endif
+endfunction
+
+autocmd MyAutoCmd BufNewFile,BufReadPost *
+call s:vimrc_local(expand('<afile>:p:h'))
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local',
+  escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
