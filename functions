@@ -62,6 +62,7 @@ init_ruby() {
 init_python() {
   export PATH=$HOME/.pyenv/bin:$PATH
   which pyenv > /dev/null 2>&1 && eval "$(pyenv init -)"
+  which pyenv > /dev/null 2>&1 && eval "$(pyenv virtualenv-init -)"
 }
 
 init_php() {
