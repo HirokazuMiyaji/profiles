@@ -53,9 +53,12 @@ if filereadable("${GOPATH}/src/github.com/nsf/gocode/vim")
 endif
 
 call dein#add('dgryski/vim-godef')
+call dein#add('fatih/vim-go')
 call dein#add('vim-jp/vim-go-extra')
 
 set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
+
+let g:go_fmt_command = "goimports"
 
 " Ruby
 call dein#add('vim-ruby/vim-ruby')
