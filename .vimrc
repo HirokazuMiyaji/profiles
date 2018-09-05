@@ -38,7 +38,10 @@ call dein#add('othree/html5.vim')
 call dein#add('cakebaker/scss-syntax.vim')
 
 " TypeScript
-call dein#add('leafgarland/typescript-vim') 
+call dein#add('leafgarland/typescript-vim')
+
+" Vue
+call dein#add('posva/vim-vue')
 
 " Elixir
 call dein#add('elixir-lang/vim-elixir')
