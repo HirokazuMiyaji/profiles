@@ -111,7 +111,6 @@ function agvim() {
 init_envs() {
   init_ruby
   init_python
-  init_php
   init_go
   export PATH=$HOME/.nodebrew/current/bin:$PATH
   export PATH=$PATH:$HOME/.embulk/bin

@@ -287,5 +287,10 @@ source "${PROFILES}/env/travis"
 ### Swift
 source "${PROFILES}/env/swift"
 
+### Flutter
+source "${PROFILES}/env/flutter"
+
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
