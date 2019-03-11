@@ -83,6 +83,11 @@ init_go() {
   export GOPATH=$HOME
   export GOBIN=$GOROOT/bin
   export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+  # goenv
+  export export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  which goenv > /dev/null 2>&1 && eval "$(goenv init -)"
 }
 
 p() { peco | while read LINE; do $@ $LINE; done }
