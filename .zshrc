@@ -290,7 +290,12 @@ source "${PROFILES}/env/swift"
 ### Flutter
 source "${PROFILES}/env/flutter"
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/hirokazumiyaji/.sdkman"
+[[ -s "/Users/hirokazumiyaji/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/hirokazumiyaji/.sdkman/bin/sdkman-init.sh"
+
+export JAVA_HOME=$HOME/.sdkman/candidates/java/current
+export PATH=$JAVA_HOME/bin:$PATH
+
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
-
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
