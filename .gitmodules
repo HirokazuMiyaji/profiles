@@ -1,9 +1,0 @@
-[submodule "submodules/prezto"]
-	path = submodules/prezto
-	url = git@github.com:hirokazumiyaji/prezto.git
-[submodule "submodules/zaw"]
-	path = submodules/zaw
-	url = git://github.com/zsh-users/zaw.git
-[submodule "submodules/powerline-zsh"]
-	path = submodules/powerline-zsh
-	url = git@github.com:carlcarl/powerline-zsh.git

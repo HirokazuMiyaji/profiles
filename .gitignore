@@ -4,3 +4,5 @@
 *pyc
 *.zshrc.local
 .python-version
+.go-version
+/gitconfig

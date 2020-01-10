@@ -1,3 +1,0 @@
-# added by travis gem
-TRAVIS_SH="${HOME}/.travis/travis.sh"
-[ -f ${TRAVIS_SH} ] && source ${TRAVIS_SH}

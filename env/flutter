@@ -1,2 +1,0 @@
-FLUTTER_PATH="$HOME/.sdk/flutter/bin"
-[ -d ${FLUTTER_PATH} ] && export PATH=${FLUTTER_PATH}:$PATH

@@ -255,3 +255,5 @@ LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
