@@ -1,30 +1,28 @@
 PROFILES=~/.profiles
 
-source "${PROFILES}/functions"
+### added by zplugin's installer
+if [[ ! -d $HOME/.zplugin/bin ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing Zplugin…%f"
+  command $(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)
+  print -P "%F{33}▓▒░ %F{34}Installation successful.%F"
+fi
+
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+ 
+[ -f ~/.zplugin-local.zsh ] && source ~/.zplugin-local.zsh
 
 # Avoid 'no matches found' error.
 setopt nullglob
 
-init_locale
-
-init_paths
-
-init_editor
-
-init_envs
-
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-aliases
 
 ## Zsh Basic Configurations {{{
 
 # Initialize hook functions array.
 typeset -ga preexec_functions
 typeset -ga precmd_functions
-
-# Use vi key bindings.
-#bindkey -v
 
 # Use emacs key bindings.
 bindkey -e
@@ -35,22 +33,6 @@ colors
 
 # Expand parameters in the prompt.
 setopt prompt_subst
-
-# Prompt strings.
-get_prompt() {
-  local color_table
-  color_table=(red green yellow blue magenta cyan white)
-
-  get_prompt_color_indexes
-  local user_color=${color_table[${result[1]}]}
-  local user_lowercase=`echo $USERNAME:l`
-  result="%{$fg[${user_color}]%}${user_lowercase}%{$reset_color%}:%{$fg[${shlvl_color}]%}%2~%{$reset_color%} %(!.#.$) "
-}
-get_prompt
-PROMPT=$result
-
-# Show current directory on right prompt.
-RPROMPT="%{$fg[cyan]%}%~%{$reset_color%}"
 
 # Change directory if the command doesn't exist.
 setopt auto_cd
@@ -91,9 +73,6 @@ setopt magic_equal_subst
 # Append / if complete directory.
 setopt mark_dirs
 
-# Don't show the list for completions.
-#setopt no_auto_menu
-
 # Don't show completions when using *.
 setopt glob_complete
 
@@ -129,10 +108,6 @@ setopt auto_pushd
 
 # Don't report the status of background and suspended jobs.
 setopt no_check_jobs
-
-# Enable predict completion
-#autoload -Uz predict-on
-#predict-on
 
 # Remove directory word by C-w.
 autoload -Uz select-word-style
@@ -244,8 +219,6 @@ bindkey -M emacs '^n' history-beginning-search-forward-end
 bindkey -M vicmd '\C-t' transpose-words
 bindkey -M viins '\C-t' transpose-words
 
-zle -N peco-src
-bindkey '^]' peco-src
 # }}}
 
 ## Zsh Terminal Title Changes {{{
@@ -275,27 +248,10 @@ esac
 
 # }}}
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-### Google Cloud Platform
-source "${PROFILES}/env/google"
-
-### Travis ci
-source "${PROFILES}/env/travis"
-
-### Swift
-source "${PROFILES}/env/swift"
-
-### Flutter
-source "${PROFILES}/env/flutter"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/hirokazumiyaji/.sdkman"
-[[ -s "/Users/hirokazumiyaji/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/hirokazumiyaji/.sdkman/bin/sdkman-init.sh"
-
-export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-export PATH=$JAVA_HOME/bin:$PATH
+export EDITOR=vim
+export VISUAL=vim
 
 LOCAL_ZSHRC="${HOME}/.zshrc.local"
 [ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
