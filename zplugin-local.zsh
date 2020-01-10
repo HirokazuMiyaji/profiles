@@ -5,7 +5,7 @@ zplugin light zsh-users/zsh-completions
 zplugin load "${HOME}/.zsh/locale.zsh"
 zplugin load "${HOME}/.zsh/paths.zsh"
 
-zplugin ice atload"source powerlevel10k.zsh-theme"
+zplugin ice depth=1 atload"source powerlevel10k.zsh-theme"
 zplugin load romkatv/powerlevel10k
 
 zplugin ice pick"async.zsh" src"pure.zsh"
