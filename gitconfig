@@ -1,11 +1,12 @@
 [user]
-	name = Hirokazu Miyaji
-	email = hirokazu.miyaji@gmail.com
+  useConfigOnly = true
+[includeIf "gitdir:~/src/github.com/"]
+	path = .gitconfig_private
 [core]
 	excludesfile = ~/.gitignore
 	pager = less -FSX
-  quotepath = false
-  editor = vim
+	quotepath = false
+	editor = vim
 [color]
 	ui = true
 [push]
@@ -19,8 +20,8 @@
 	cam = commit --amend -v
 	di = diff
 	dc = diff --cached
-  br = branch
-  bra = branch -a
+	br = branch
+	bra = branch -a
 	nbr = checkout -b
 	sw = checkout
 	um = \\!sh -c 'git pull \"$@\" && git mup' .
@@ -49,3 +50,4 @@
 	root = ~/src
 [fetch]
 	prune = true
+
