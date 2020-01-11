@@ -3,7 +3,7 @@ PROFILES=~/.profiles
 ### added by zplugin's installer
 if [[ ! -d $HOME/.zplugin/bin ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing Zplugin…%f"
-  command $(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)
+  curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh | bash
   print -P "%F{33}▓▒░ %F{34}Installation successful.%F"
 fi
 

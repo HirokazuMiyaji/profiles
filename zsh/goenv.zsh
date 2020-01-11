@@ -1,8 +1,9 @@
-if [ -d "${HOME}/.goenv" ]; then
-  git clone https://github.com/syndbg/goenv.git ${HOME}/.goenv
+export GOENV_ROOT="${HOME}/.goenv"
+
+if [ ! -d "${GOENV_ROOT}" ]; then
+  git clone https://github.com/syndbg/goenv.git ${GOENV_ROOT}
 fi
 
-export GOENV_ROOT="${HOME}/.goenv"
-export PATH="${HOME}/.goenv/bin:${PATH}"
+export PATH="${GOENV_ROOT}/bin:${PATH}"
 
 eval "$(goenv init -)"
