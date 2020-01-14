@@ -7,3 +7,5 @@ fi
 export PATH="${GOENV_ROOT}/bin:${PATH}"
 
 eval "$(goenv init -)"
+
+export PATH="${GOPATH}/bin:${PATH}"

@@ -29,48 +29,12 @@ call dein#begin(expand('~/.vim'))
 
 call dein#add('Shougo/dein.vim')
 
-call dein#add('itchyny/lightline.vim')
-call dein#add('Yggdroot/indentLine')
-
-" HTML / CSS / Javascript
-call dein#add('hail2u/vim-css3-syntax')
-call dein#add('othree/html5.vim')
-call dein#add('cakebaker/scss-syntax.vim')
-
-" TypeScript
-call dein#add('leafgarland/typescript-vim')
-
-" Vue
-call dein#add('posva/vim-vue')
-
-" Elixir
-call dein#add('elixir-lang/vim-elixir')
-
-" Python
-call dein#add('tell-k/vim-autopep8')
-
-" Go
-if filereadable("${GOROOT}/misc/vim")
-  set rtp+=$GOROOT/misc/vim
-endif
-
-if filereadable("${GOPATH}/src/github.com/nsf/gocode/vim")
-  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-endif
-
-call dein#add('dgryski/vim-godef')
-call dein#add('fatih/vim-go')
-call dein#add('vim-jp/vim-go-extra')
-
-set rtp^=$GOPATH/src/github.com/nsf/gocode/vim
-
-let g:go_fmt_command = "goimports"
-
-" Ruby
-call dein#add('vim-ruby/vim-ruby')
-call dein#add('tpope/vim-rails')
-call dein#add('scrooloose/syntastic')
-call dein#add('alpaca-tc/vim-endwise.git')
+call dein#add('prabirshrestha/async.vim')
+call dein#add('prabirshrestha/asyncomplete.vim')
+call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+call dein#add('prabirshrestha/vim-lsp')
+call dein#add('mattn/vim-lsp-settings')
+call dein#add('mattn/vim-goimports')
 
 call dein#end()
 
@@ -80,6 +44,8 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+let g:lsp_async_completion = 1
 
 set laststatus=2
 set t_Co=256
