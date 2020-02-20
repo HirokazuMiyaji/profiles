@@ -6,3 +6,4 @@ echo ${installed} | grep openssl > /dev/null || brew install openssl
 echo ${installed} | grep readline > /dev/null || brew install readline
 echo ${installed} | grep zlib > /dev/null || brew install zlib
 echo ${installed} | grep dart > /dev/null || brew install dart
+echo ${installed} | grep direnv > /dev/null || brew install direnv

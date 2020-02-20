@@ -14,9 +14,6 @@ zplugin load Homebrew/install
 zplugin ice pick"async.zsh" src"pure.zsh"
 zplugin light sindresorhus/pure
 
-zplugin ice from"gh-r" as"program" mv"direnv.darwin-amd64 -> direnv" pick"direnv" atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' src"zhook.zsh"
-zplugin load direnv/direnv
-
 zplugin ice from"gh-r" as"program" atclone"*/install"
 zplugin load github/hub
 
@@ -50,3 +47,4 @@ zplugin snippet "${HOME}/.zsh/rbenv.zsh"
 zplugin snippet "${HOME}/.zsh/pyenv.zsh"
 zplugin snippet "${HOME}/.zsh/nodenv.zsh"
 zplugin snippet "${HOME}/.zsh/sdkman.zsh"
+zplugin snippet "${HOME}/.zsh/direnv.zsh"
