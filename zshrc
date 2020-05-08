@@ -1,22 +1,113 @@
-PROFILES=~/.profiles
+# Zsh Basic Configurations {{{
+setopt nullglob
+fpath=(/usr/local/share/zsh-completions $fpath)
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+bindkey -e
+autoload -Uz colors
+colors
+setopt prompt_subst
+setopt auto_cd
+setopt auto_resume
+setopt no_beep
+setopt brace_ccl
+setopt correct
+setopt equals
+setopt extended_glob
+setopt no_flow_control
+setopt no_hup
+setopt long_list_jobs
+setopt magic_equal_subst
+setopt mark_dirs
+setopt glob_complete
+setopt multios
+setopt numeric_glob_sort
+setopt print_eightbit
+setopt pushd_ignore_dups
+unsetopt promptcr
+setopt transient_rprompt
+setopt auto_pushd
+setopt no_check_jobs
+autoload -Uz select-word-style
+select-word-style bash
 
-### added by zplugin's installer
-if [[ ! -d $HOME/.zplugin/bin ]]; then
-  print -P "%F{33}▓▒░ %F{220}Installing Zplugin…%f"
-  curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh | bash
-  print -P "%F{33}▓▒░ %F{34}Installation successful.%F"
+PROMPT="%n %c %# "
+# }}}
+
+# Locales {{{
+LANG="ja_JP.UTF-8"
+LC_COLLATE="ja_JP.UTF-8"
+LC_CTYPE="UTF-8"
+LC_MESSAGES="ja_JP.UTF-8"
+LC_MONETARY="ja_JP.UTF-8"
+LC_NUMERIC="ja_JP.UTF-8"
+LC_TIME="ja_JP.UTF-8"
+LC_ALL="ja_JP.UTF-8"
+# }}}
+
+# Zsh Completion System {{{
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' command 'ps -axco pid,user,command'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format $'%{\e[0;31m%}%d%{\e[0m%}'
+zstyle ':completion:*:messages' format $'%{\e[0;31m%}%d%{\e[0m%}'
+zstyle ':completion:*:warnings' format $'%{\e[0;31m%}No matches for: %d%{\e[0m%}'
+zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
+local knownhosts
+if [ -f $HOME/.ssh/known_hosts ]; then
+  knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+  zstyle ':completion:*:(ssh|scp|sftp):*' hosts $knownhosts
 fi
+# }}}
 
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
- 
-[ -f ~/.zplugin-local.zsh ] && source ~/.zplugin-local.zsh
+# Zsh History {{{
+HISTFILE="${HOME}"/.zsh-history
+HISTSIZE=100000
+SAVEHIST=1000000
+setopt hist_ignore_space
+setopt hist_no_store
+setopt share_history
+setopt append_history
+setopt extended_history
+setopt hist_ignore_dups
+setopt hist_verify
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+# }}}
+
+# Zsh Keybinds {{{
+bindkey -M viins '\C-h' backward-delete-char
+bindkey -M viins '\C-w' backward-kill-word
+bindkey -M viins '\C-u' backward-kill-line
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '\C-r' redo
+bindkey -M vicmd '/' history-incremental-search-backward
+bindkey -M vicmd '?' history-incremental-search-forward
+bindkey -M viins '^p' history-beginning-search-backward-end
+bindkey -M viins '^n' history-beginning-search-forward-end
+bindkey -M emacs '^p' history-beginning-search-backward-end
+bindkey -M emacs '^n' history-beginning-search-forward-end
+bindkey -M vicmd '\C-t' transpose-words
+bindkey -M viins '\C-t' transpose-words
+# }}}
+
+# ALIAS {{{
+alias git=hub
+alias vim=nvim
+# }}}
 
 # SDKMAN {{{
 export SDKMAN_DIR="${HOME}/.sdkman"
 if [ ! -d "${SDKMAN_DIR}" ]; then
-  curl -s "https://get.sdkman.io" | bash
+  curl -s "https://get.sdkman.io" | zsh
 fi
 if [ -d "${SDKMAN_DIR}/bin/sdkman-init.sh" ]; then
   source "${SDKMAN_DIR}/bin/sdkman-init.sh"
@@ -29,247 +120,57 @@ export PATH=$JAVA_HOME/bin:$PATH
 which direnv > /dev/null && eval "$(direnv hook zsh)"
 # }}}
 
-# Avoid 'no matches found' error.
-setopt nullglob
-
-fpath=(/usr/local/share/zsh-completions $fpath)
-
-## Zsh Basic Configurations {{{
-
-# Initialize hook functions array.
-typeset -ga preexec_functions
-typeset -ga precmd_functions
-
-# Use emacs key bindings.
-bindkey -e
-
-# Use colors.
-autoload -Uz colors
-colors
-
-# Expand parameters in the prompt.
-setopt prompt_subst
-
-# Change directory if the command doesn't exist.
-setopt auto_cd
-
-# Resume the command if the command is suspended.
-setopt auto_resume
-
-# No beep.
-setopt no_beep
-
-# Enable expansion from {a-c} to a b c.
-setopt brace_ccl
-
-# Enable spell check.
-setopt correct
-
-# Expand =command to the path of the command.
-setopt equals
-
-# Use #, ~ and ^ as regular expression.
-setopt extended_glob
-
-# No follow control by C-s and C-q.
-setopt no_flow_control
-
-# Don't send SIGHUP to background jobs when shell exits.
-setopt no_hup
-
-# Disable C-d to exit shell.
-#setopt ignore_eof
-
-# Show long list for jobs command.
-setopt long_list_jobs
-
-# Enable completion after = like --prefix=/usr...
-setopt magic_equal_subst
-
-# Append / if complete directory.
-setopt mark_dirs
-
-# Don't show completions when using *.
-setopt glob_complete
-
-# Perform implicit tees or cats when multiple redirections are attempted.
-setopt multios
-
-# Use numeric sort instead of alphabetic sort.
-setopt numeric_glob_sort
-
-# Enable file names using 8 bits, important to rendering Japanese file names.
-setopt print_eightbit
-
-# Show exit code if exits non 0.
-#setopt print_exit_value
-
-# Don't push multiple copies of the same directory onto the directory stack.
-setopt pushd_ignore_dups
-
-# Use single-line command line editing instead of multi-line.
-#setopt single_line_zle
-
-# Print commands and their arguments as they are executed.
-#setopt xtrace
-
-# Show CR if the prompt doesn't end with CR.
-unsetopt promptcr
-
-# Remove any right prompt from display when accepting a command line.
-setopt transient_rprompt
-
-# Pushd by cd -[tab]
-setopt auto_pushd
-
-# Don't report the status of background and suspended jobs.
-setopt no_check_jobs
-
-# Remove directory word by C-w.
-autoload -Uz select-word-style
-select-word-style bash
-
-# }}}
-
-## Zsh Completion System {{{
-
-# Use zsh completion system.
-autoload -Uz compinit
-compinit
-
-# Colors completions.
-zstyle ':completion:*' list-colors ''
-
-# Colors processes for kill completion.
-zstyle ':completion:*:*:kill:*:processes' command 'ps -axco pid,user,command'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
-
-# Ignore case.
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# Formatting and messages.
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format $'%{\e[0;31m%}%d%{\e[0m%}'
-zstyle ':completion:*:messages' format $'%{\e[0;31m%}%d%{\e[0m%}'
-zstyle ':completion:*:warnings' format $'%{\e[0;31m%}No matches for: %d%{\e[0m%}'
-zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
-zstyle ':completion:*' group-name ''
-
-# Make the completion menu selectable.
-zstyle ':completion:*:default' menu select=1
-
-# Fuzzy match.
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-
-# Hostname completion
-local knownhosts
-if [ -f $HOME/.ssh/known_hosts ]; then
-  knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
-  zstyle ':completion:*:(ssh|scp|sftp):*' hosts $knownhosts
+# GOENV {{{
+export GOENV_ROOT="$HOME/.goenv"
+if [ ! -d "${GOENV_ROOT}" ]; then
+  git clone https://github.com/syndbg/goenv.git ${GOENV_ROOT}
 fi
-
-## }}}
-
-## Zsh History {{{
-
-# Save history on the file.
-HISTFILE="${HOME}"/.zsh-history
-
-# Max history in the memory.
-HISTSIZE=100000
-
-# Max history.
-SAVEHIST=1000000
-
-# Remove command lines from the history list when the first character on the line is a space.
-setopt hist_ignore_space
-
-# Remove the history (fc -l) command from the history list when invoked.
-setopt hist_no_store
-
-# Read new commands from the history and your typed commands to be appended to the history file.
-setopt share_history
-
-# Append the history list to the history file for mutiple Zsh sessions.
-setopt append_history
-
-# Save each command's beginning timestamp.
-setopt extended_history
-
-# Don't add duplicates.
-setopt hist_ignore_dups
-
-# Don't execute the line directly from the history.
-setopt hist_verify
-
-# Seach history.
-autoload -Uz history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-
-## }}}
-
-## Zsh Keybinds {{{
-## based on http://github.com/kana/config/
-
-# To delete characters beyond the starting point of the current insertion.
-bindkey -M viins '\C-h' backward-delete-char
-bindkey -M viins '\C-w' backward-kill-word
-bindkey -M viins '\C-u' backward-kill-line
-
-# Undo/redo more than once.
-bindkey -M vicmd 'u' undo
-bindkey -M vicmd '\C-r' redo
-
-# History
-# See also 'autoload history-search-end'.
-bindkey -M vicmd '/' history-incremental-search-backward
-bindkey -M vicmd '?' history-incremental-search-forward
-bindkey -M viins '^p' history-beginning-search-backward-end
-bindkey -M viins '^n' history-beginning-search-forward-end
-
-bindkey -M emacs '^p' history-beginning-search-backward-end
-bindkey -M emacs '^n' history-beginning-search-forward-end
-
-# Transpose
-bindkey -M vicmd '\C-t' transpose-words
-bindkey -M viins '\C-t' transpose-words
-
+export PATH="$GOENV_ROOT/bin:$PATH"
+if command -v goenv 1>/dev/null 2>&1; then
+  eval "$(goenv init -)"
+fi
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
 # }}}
 
-## Zsh Terminal Title Changes {{{
-
-case "${TERM}" in
-screen*|ansi*)
-  preexec_term_title() {
-    print -n "\ek$1\e\\"
-  }
-  preexec_functions+=preexec_term_title
-  precmd_term_title() {
-    print -n "\ek$(whoami)@$(hostname -s):$(basename "${PWD}")\e\\"
-  }
-  precmd_functions+=precmd_term_title
-  ;;
-xterm*)
-  preexec_term_title() {
-    print -n "\e]0;$1\a"
-  }
-  preexec_functions+=preexec_term_title
-  precmd_term_title() {
-    print -n "\e]0;$(basename "${PWD}")\a"
-  }
-  precmd_functions+=precmd_term_title
-  ;;
-esac
-
+# PYENV {{{
+export PYENV_ROOT="$HOME/.pyenv"
+if [ ! -d "${PYENV_ROOT}" ]; then
+  git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT}
+fi
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 # }}}
 
-export EDITOR=vim
-export VISUAL=vim
+# NODENV {{{
+export NODENV_ROOT="$HOME/.nodenv"
+if [ ! -d "${NODENV_ROOT}" ]; then
+  git clone https://github.com/nodenv/nodenv.git ${NODENV_ROOT}
+  mkdir -p ${NODENV_ROOT}/plugins
+  git clone https://github.com/nodenv/node-build.git ${NODENV_ROOT}/plugins/node-build
+fi
+export PATH="$NODENV_ROOT/bin:$PATH"
+if command -v nodenv 1>/dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
+# }}}
 
-LOCAL_ZSHRC="${HOME}/.zshrc.local"
-[ -f ${LOCAL_ZSHRC} ] && source ${LOCAL_ZSHRC}
+# GOOGLE CLOUD SDK {{{
+GOOGLE_SDK="${HOME}/src/google-cloud-sdk/path.zsh.inc"
+GOOGLE_SDK_COMPLETION="$HOME/src/google-cloud-sdk/completion.zsh.inc"
+[ -f ${GOOGLE_SDK} ] && source ${GOOGLE_SDK}
+[ -f ${GOOGLE_SDK_COMPLETION} ] && source ${GOOGLE_SDK_COMPLETION}
+# }}}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# FLUTTER {{{
+FLUTTER_ROOT="${HOME}/.sdk/flutter"
+if [ ! -d "${FLUTTER_ROOT}" ]; then
+  git clone https://github.com/flutter/flutter.git -b stable ${FLUTTER_ROOT}
+fi
+FLUTTER_PATH="${FLUTTER_ROOT}/bin"
+if [ -d ${FLUTTER_PATH} ]; then
+  export PATH=${FLUTTER_PATH}:${PATH}
+fi
+# }}}
