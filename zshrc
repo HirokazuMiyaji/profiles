@@ -104,68 +104,8 @@ alias git=hub
 alias vim=nvim
 # }}}
 
-# SDKMAN {{{
-export SDKMAN_DIR="${HOME}/.sdkman"
-if [ ! -d "${SDKMAN_DIR}" ]; then
-  curl -s "https://get.sdkman.io" | zsh
-fi
-if [ -e "${SDKMAN_DIR}/bin/sdkman-init.sh" ]; then
-  source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-fi
-export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-export PATH=$JAVA_HOME/bin:$PATH
-# }}}
-
 # DIRENV {{{
 which direnv > /dev/null && eval "$(direnv hook zsh)"
-# }}}
-
-# GOENV {{{
-export GOENV_ROOT="${HOME}/.goenv"
-if [ ! -d "${GOENV_ROOT}" ]; then
-  git clone https://github.com/syndbg/goenv.git ${GOENV_ROOT}
-fi
-export PATH="${GOENV_ROOT}/bin:${PATH}"
-if command -v goenv 1>/dev/null 2>&1; then
-  eval "$(goenv init -)"
-fi
-export PATH="${GOROOT}/bin:${PATH}"
-export PATH="${PATH}:${GOPATH}/bin"
-# }}}
-
-# PYENV {{{
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ ! -d "${PYENV_ROOT}" ]; then
-  git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT}
-fi
-export PATH="${PYENV_ROOT}/bin:${PATH}"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-# }}}
-
-# NODENV {{{
-export NODENV_ROOT="${HOME}/.nodenv"
-if [ ! -d "${NODENV_ROOT}" ]; then
-  git clone https://github.com/nodenv/nodenv.git ${NODENV_ROOT}
-  mkdir -p ${NODENV_ROOT}/plugins
-  git clone https://github.com/nodenv/node-build.git ${NODENV_ROOT}/plugins/node-build
-fi
-export PATH="${NODENV_ROOT}/bin:${PATH}"
-if command -v nodenv 1>/dev/null 2>&1; then
-  eval "$(nodenv init -)"
-fi
-# }}}
-
-# RBENV {{{
-export RBENV_ROOT="${HOME}/.rbenv"
-if [ ! -d "${RBENV_ROOT}" ]; then
-  git clone https://github.com/rbenv/rbenv.git ${RBENV_ROOT}
-fi
-export PATH="${RBENV_ROOT}/bin:${PATH}"
-if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
 # }}}
 
 # asdf {{{
@@ -176,6 +116,11 @@ fi
 source "${ASDF_ROOT}/asdf.sh"
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
+
+plugins=("golang" "python" "flutter" "terraform" "java")
+for plugin in ${plugins}; do
+  asdf plugin add ${plugin} > /dev/null 2>&1
+done
 # }}}
 
 # GOOGLE CLOUD SDK {{{
@@ -186,13 +131,7 @@ GOOGLE_SDK_COMPLETION="$HOME/src/google-cloud-sdk/completion.zsh.inc"
 # }}}
 
 # FLUTTER {{{
-# FLUTTER_ROOT="${HOME}/.sdk/flutter"
-# if [ ! -d "${FLUTTER_ROOT}" ]; then
-#   git clone https://github.com/flutter/flutter.git -b stable ${FLUTTER_ROOT}
-# fi
-# FLUTTER_PATH="${FLUTTER_ROOT}/bin"
-# if [ -d ${FLUTTER_PATH} ]; then
-#   export PATH=${FLUTTER_PATH}:${PATH}
-# fi
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 # }}}
+
+#export DOCKER_HOST=unix://${HOME}/docker.sock
